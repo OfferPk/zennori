@@ -1,0 +1,9 @@
+{
+  "appId": "pk.offer.zennori",
+  "appName": "ZenNori",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  }
+}
