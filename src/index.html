@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>ZenNori - Serene Japanese Seaweed Domino Puzzle</title>
+  <meta name="description" content="A tranquil Japanese Norinori logic puzzle where each room must contain exactly two shaded nori cells forming 1x2 dominoes.">
+  <meta name="theme-color" content="#192b21">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="app-header">
+    <div class="logo-container">
+      <span class="logo-kanji">海苔</span>
+      <h1 class="logo-title">ZenNori</h1>
+    </div>
+    <div class="header-actions">
+      <button id="btn-theme" class="icon-btn" title="Toggle Theme" aria-label="Toggle Theme">🌙</button>
+      <button id="btn-sound" class="icon-btn" title="Toggle Sound" aria-label="Toggle Sound">🔔</button>
+      <button id="btn-rules" class="icon-btn" title="How to Play" aria-label="How to Play">❓</button>
+      <button id="btn-levels" class="icon-btn" title="Level Select" aria-label="Level Select">🍱</button>
+    </div>
+  </header>
+
+  <section class="level-banner">
+    <div class="level-meta">
+      <span id="level-pack" class="level-pack">Bento • Novice</span>
+      <div class="level-name-wrap">
+        <h2 id="level-title" class="level-title">Bamboo Garden</h2>
+        <span id="level-size" class="level-size-tag">6×6</span>
+      </div>
+    </div>
+    <div class="stats-container">
+      <div class="stat-item">
+        <span class="stat-label">DOMINOES</span>
+        <span id="stat-nori" class="stat-val">0 / 6</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">TIME</span>
+        <span id="stat-timer" class="stat-val">00:00</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="status-bar">
+    <div id="status-badge" class="status-badge normal">
+      <span>Place 1×2 nori dominoes so every chamber has exactly 2 shaded cells.</span>
+    </div>
+  </div>
+
+  <main class="board-wrapper">
+    <div id="board-container" class="board-container">
+      <div id="grid" class="grid"></div>
+    </div>
+  </main>
+
+  <footer class="controls-wrapper">
+    <div class="tools-bar">
+      <button id="tool-cycle" class="tool-btn active" data-tool="cycle" aria-label="Cycle tool">
+        <span>🔄</span> Cycle
+      </button>
+      <button id="tool-nori" class="tool-btn" data-tool="nori" aria-label="Nori tool">
+        <span>🟩</span> Nori
+      </button>
+      <button id="tool-dot" class="tool-btn" data-tool="dot" aria-label="Dot mark tool">
+        <span>⚪</span> Dot
+      </button>
+    </div>
+
+    <div class="actions-bar">
+      <button id="btn-undo" class="action-btn" title="Undo Move">
+        <span>↩️</span> Undo
+      </button>
+      <button id="btn-hint" class="action-btn" title="Get Hint">
+        <span>💡</span> Hint
+      </button>
+      <button id="btn-reset" class="action-btn" title="Reset Level">
+        <span>🔄</span> Reset
+      </button>
+      <button id="btn-next" class="action-btn" title="Next Level">
+        <span>⏩</span> Next
+      </button>
+    </div>
+  </footer>
+
+  <!-- Rules Modal -->
+  <div id="modal-rules" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="rules-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="rules-title" class="modal-title">Rules of Norinori (海苔のり)</h3>
+        <button id="btn-close-rules" class="icon-btn" aria-label="Close Rules">✕</button>
+      </div>
+      <div class="modal-body">
+        <h4>The Japanese Seaweed Domino Tradition</h4>
+        <p>Norinori is an elegant pencil-and-paper logic puzzle published by Nikoli. The objective is to shade cells representing sheets of seasoned nori seaweed on a bento tray.</p>
+        
+        <h4>Core Rules</h4>
+        <ul>
+          <li><strong>Chamber Rule:</strong> Each outlined chamber (bento compartment) must contain <em>exactly two</em> shaded cells.</li>
+          <li><strong>Domino Rule:</strong> All shaded cells must be grouped into connected <strong>1×2 dominoes</strong> (sharing an edge).</li>
+          <li><strong>Separation Rule:</strong> Dominoes may cross borders between different chambers, but <strong>no two dominoes may touch horizontally or vertically</strong> (diagonal contact is permitted).</li>
+          <li><strong>No Singletons or Larger Polyominoes:</strong> Shaded areas cannot be 1×1 single cells, nor 3 or more connected cells.</li>
+        </ul>
+
+        <h4>Controls &amp; Tips</h4>
+        <ul>
+          <li><strong>Left Click / Tap:</strong> Cycle cell through Empty ➔ Nori ➔ Dot (Unshaded).</li>
+          <li><strong>Drag / Swipe:</strong> Paint nori or dots rapidly across rows and columns.</li>
+          <li><strong>Chamber Counters:</strong> The faint numbers in the corners show current nori count in that chamber (turns green at 2/2).</li>
+          <li><strong>Tool Selector:</strong> Switch between Cycle, Nori-only, or Dot-only tools at the bottom.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Level Select Modal -->
+  <div id="modal-levels" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="levels-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="levels-title" class="modal-title">Select Bento Course</h3>
+        <button id="btn-close-levels" class="icon-btn" aria-label="Close Level Select">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="pack-tabs" class="pack-tabs"></div>
+        <div id="level-grid" class="level-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Victory Modal -->
+  <div id="modal-victory" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="victory-title">
+    <div class="modal-card victory-card">
+      <div class="bell-icon">🔔</div>
+      <h3 id="victory-title" class="victory-title">Bento Harmony Achieved!</h3>
+      <p id="victory-desc" class="victory-desc">You balanced the domino chambers in 01:24 with zero errors.</p>
+      <button id="btn-victory-next" class="btn-primary">Next Level ➔</button>
+    </div>
+  </div>
+
+  <!-- Game Scripts -->
+  <script src="norinori-engine.js"></script>
+  <script src="audio.js"></script>
+  <script src="levels.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
