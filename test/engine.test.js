@@ -10,7 +10,8 @@ const {
 test('Norinori Engine - Valid Board Validation', () => {
   const rows = 4, cols = 4;
   // Two 8-cell rooms
-  const rooms = [\n    { id: 0, cells: [[0, 0], [0, 1], [0, 2], [0, 3], [1, 0], [1, 1], [1, 2], [1, 3]] },
+  const rooms = [
+    { id: 0, cells: [[0, 0], [0, 1], [0, 2], [0, 3], [1, 0], [1, 1], [1, 2], [1, 3]] },
     { id: 1, cells: [[2, 0], [2, 1], [2, 2], [2, 3], [3, 0], [3, 1], [3, 2], [3, 3]] }
   ];
   const grid = Array.from({ length: rows }, () => Array(cols).fill(CELL_STATE.EMPTY));
@@ -33,7 +34,8 @@ test('Norinori Engine - Valid Board Validation', () => {
 test('Norinori Engine - Cross-Chamber Domino Validation', () => {
   const rows = 2, cols = 2;
   // Two 2-cell vertical rooms
-  const rooms = [\n    { id: 0, cells: [[0, 0], [1, 0]] },
+  const rooms = [
+    { id: 0, cells: [[0, 0], [1, 0]] },
     { id: 1, cells: [[0, 1], [1, 1]] }
   ];
   const grid = Array.from({ length: rows }, () => Array(cols).fill(CELL_STATE.SHADED));
@@ -48,7 +50,8 @@ test('Norinori Engine - Cross-Chamber Domino Validation', () => {
 
 test('Norinori Engine - Singleton Shaded Cell Violation', () => {
   const rows = 3, cols = 3;
-  const rooms = [\n    { id: 0, cells: [[0, 0], [0, 1], [0, 2], [1, 0]] },
+  const rooms = [
+    { id: 0, cells: [[0, 0], [0, 1], [0, 2], [1, 0]] },
     { id: 1, cells: [[1, 1], [1, 2], [2, 0], [2, 1], [2, 2]] }
   ];
   const grid = Array.from({ length: rows }, () => Array(cols).fill(CELL_STATE.EMPTY));
@@ -61,7 +64,8 @@ test('Norinori Engine - Singleton Shaded Cell Violation', () => {
 
 test('Norinori Engine - Oversize Component Violation (Size >= 3)', () => {
   const rows = 3, cols = 3;
-  const rooms = [\n    { id: 0, cells: [[0, 0], [0, 1], [0, 2]] },
+  const rooms = [
+    { id: 0, cells: [[0, 0], [0, 1], [0, 2]] },
     { id: 1, cells: [[1, 0], [1, 1], [1, 2], [2, 0], [2, 1], [2, 2]] }
   ];
   const grid = Array.from({ length: rows }, () => Array(cols).fill(CELL_STATE.EMPTY));
@@ -78,7 +82,8 @@ test('Norinori Engine - Oversize Component Violation (Size >= 3)', () => {
 test('Norinori Engine - Deductive Hint Engine', () => {
   const rows = 3, cols = 3;
   // Room 0 has 2 cells: (0,0) and (0,1)
-  const rooms = [\n    { id: 0, cells: [[0, 0], [0, 1]] },
+  const rooms = [
+    { id: 0, cells: [[0, 0], [0, 1]] },
     { id: 1, cells: [[0, 2], [1, 0], [1, 1], [1, 2], [2, 0], [2, 1], [2, 2]] }
   ];
   const grid = Array.from({ length: rows }, () => Array(cols).fill(CELL_STATE.EMPTY));
@@ -101,7 +106,8 @@ test('Norinori Engine - Deductive Hint Engine', () => {
 test('Norinori Engine - Solver and Uniqueness Verification', () => {
   const rows = 4, cols = 4;
   // 4 rooms of 4 cells each
-  const rooms = [\n    { id: 0, cells: [[0, 0], [0, 1], [1, 0], [1, 1]] },
+  const rooms = [
+    { id: 0, cells: [[0, 0], [0, 1], [1, 0], [1, 1]] },
     { id: 1, cells: [[0, 2], [0, 3], [1, 2], [1, 3]] },
     { id: 2, cells: [[2, 0], [2, 1], [3, 0], [3, 1]] },
     { id: 3, cells: [[2, 2], [2, 3], [3, 2], [3, 3]] }
